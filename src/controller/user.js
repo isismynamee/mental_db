@@ -44,13 +44,13 @@ exports.regist = async(req, res) => {
         const profileRegist = await profile.create(newProfileR)
 
         res.status(200).send({
-            status: 'Success',
+            status: 0,
             data: {newUserRegist, profileRegist}
         })
         
     } catch (error) {
         res.send({
-            status: 'Failed, Cant Register',
+            status: 1,
             message: (error.message)
         })
     }
@@ -91,7 +91,7 @@ exports.login = async(req, res) => {
   
       if (!valid) {
         return res.status(400).send({
-          status: "failed",
+          status: 1,
           message: (error.message)
         });
       }
@@ -99,7 +99,7 @@ exports.login = async(req, res) => {
       const token = jwt.sign({ id: data.id }, process.env.PRIVATE_KEY);
 
       res.status(200).send({
-        status: "success...",
+        status: 0,
         data: {
             id: data.id,
             firstName: data.firstName,
@@ -111,7 +111,7 @@ exports.login = async(req, res) => {
       });
     } catch (error) {
       res.status(500).send({
-        status: "failed",
+        status: 1,
         message: error.message,
       });
     }
@@ -129,12 +129,12 @@ exports.auth = async(req, res) => {
 
       if (!dataUser) {
         return res.status(404).send({
-          status: "failed",
+          status: 1,
         });
       }
 
       res.send({
-        status: "success...",
+        status: 0,
         data: {
           user: {
             id: dataUser.id,
@@ -144,7 +144,7 @@ exports.auth = async(req, res) => {
       });
     } catch (error) {
       res.status({
-        status: "failed",
+        status: 1,
         message: error.message,
       });
     }
