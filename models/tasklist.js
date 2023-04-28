@@ -15,6 +15,18 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           name: "userId"
         }
+      }),
+      tasklist.hasMany(models.assignment, {
+        as: "tasklists",
+        foreignKey: {
+          name: "taskId"
+        }
+      }),
+      tasklist.hasMany(models.time, {
+        as: "times",
+        foreignKey: {
+          name: "taskId"
+        }
       })
     }
   }
