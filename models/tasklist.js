@@ -3,35 +3,29 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class group extends Model {
+  class tasklist extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      group.belongsTo(models.event, {
-        as: "event",
-        foreignKey: {
-          name: "groupId"
-        }
-      }),
-      group.belongsToMany(models.user, {
+      tasklist.belongsTo(models.user, {
         as: "users",
-        through: {
-          model: "memberEvent",
-          as: "bridge"
+        foreignKey: {
+          name: "userId"
         }
       })
     }
   }
-  group.init({
-    groupName: DataTypes.STRING,
+  tasklist.init({
+    userId: DataTypes.INTEGER,
+    taskName: DataTypes.STRING,
     description: DataTypes.STRING,
-    eventsGroup: DataTypes.STRING
+    reminder: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'group',
+    modelName: 'tasklist',
   });
-  return group;
+  return tasklist;
 };

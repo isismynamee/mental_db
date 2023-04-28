@@ -2,23 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('memberEvents', {
+    await queryInterface.createTable('tasklists', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idGroup: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "groups",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
-      idUser: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: "users",
@@ -26,6 +17,15 @@ module.exports = {
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
+      },
+      taskName: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      reminder: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -38,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('memberEvents');
+    await queryInterface.dropTable('tasklists');
   }
 };

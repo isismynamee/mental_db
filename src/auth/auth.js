@@ -18,7 +18,7 @@ exports.auth = (req, res, next) => {
         next()
     } catch (error) {
         res.status(404).send({
-            message: console.log(error.message)
+            message: error.message
         })
     }
 }

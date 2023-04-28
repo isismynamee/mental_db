@@ -2,30 +2,33 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('events', {
+    await queryInterface.createTable('notifs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      eventName: {
-        type: Sequelize.STRING
-      },
-      groupId: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "groups",
+          model: "users",
           key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      eventDate: {
-        type: Sequelize.DATE
+      headMessage: {
+        type: Sequelize.TEXT
       },
-      status: {
-        type: Sequelize.STRING
+      bodyMessage: {
+        type: Sequelize.TEXT
+      },
+      subjectMessage: {
+        type: Sequelize.TEXT
+      },
+      timeSend: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -38,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('events');
+    await queryInterface.dropTable('notifs');
   }
 };
