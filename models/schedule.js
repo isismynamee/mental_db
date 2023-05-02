@@ -10,13 +10,30 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      schedule.belongsTo(models.user, {
+        as: "userSchedule",
+        foreignKey: {
+          name: "userId"
+        }
+      }),
+      schedule.belongsTo(models.tasklist, {
+        as: "taskSchedule",
+        foreignKey: {
+          name: "taskId"
+        }
+      }),
+      schedule.belongsTo(models.time, {
+        as: "timeSchedule",
+        foreignKey: {
+          name: "timeId"
+        }
+      })
     }
   }
   schedule.init({
     userId: DataTypes.INTEGER,
     taskId: DataTypes.INTEGER,
-    time: DataTypes.INTEGER,
+    timeId: DataTypes.INTEGER,
     assignmentId: DataTypes.INTEGER
   }, {
     sequelize,

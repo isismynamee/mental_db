@@ -10,10 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      time.hasMany(models.takslist, {
-        as: "times",
+      time.belongsTo(models.tasklist, {
+        as: "timeTask",
         foreignKey: {
           name: "taskId"
+        }
+      }),
+      time.hasMany(models.schedule, {
+        as: "timeSchedule",
+        foreignKey: {
+          name: "timeId"
         }
       })
     }

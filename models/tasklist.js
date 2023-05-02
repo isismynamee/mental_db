@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       tasklist.belongsTo(models.user, {
-        as: "users",
+        as: "usersTasklist",
         foreignKey: {
           name: "userId"
         }
@@ -23,7 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         }
       }),
       tasklist.hasMany(models.time, {
-        as: "times",
+        as: "timeTask",
+        foreignKey: {
+          name: "taskId"
+        }
+      }),
+      tasklist.hasMany(models.schedule, {
+        as: "taskSchedule",
         foreignKey: {
           name: "taskId"
         }
@@ -34,7 +40,6 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     taskName: DataTypes.STRING,
     description: DataTypes.STRING,
-    reminder: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'tasklist',

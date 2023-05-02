@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       assignment.belongsTo(models.user, {
-        as: "users",
+        as: "usersAssignment",
         foreignKey: {
           name: "userId"
         }
@@ -27,8 +27,14 @@ module.exports = (sequelize, DataTypes) => {
   assignment.init({
     userId: DataTypes.INTEGER,
     taskId: DataTypes.INTEGER,
-    priority: DataTypes.STRING,
-    status: DataTypes.STRING
+    priority: {
+      type: DataTypes.STRING,
+      defaultValue: 'important'
+    },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'not yet implemented'
+    }
   }, {
     sequelize,
     modelName: 'assignment',

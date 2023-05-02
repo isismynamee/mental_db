@@ -17,15 +17,27 @@ module.exports = (sequelize, DataTypes) => {
         }
       })
       user.hasMany(models.assignment, {
-        as: "users",
+        as: "usersAssignment",
         foreignKey: {
           name: "userId"
         }
       }),
       user.hasMany(models.tasklist, {
-        as: "users",
+        as: "usersTasklist",
         foreignKey: {
           name: "taskId"
+        }
+      }),
+      user.hasMany(models.schedule, {
+        as: "userSchedule",
+        foreignKey: {
+          name: "userId"
+        }
+      }),
+      user.hasMany(models.notif, {
+        as: "notifUser",
+        foreignKey: {
+          name: "userId"
         }
       })
     }
@@ -35,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     userName: DataTypes.STRING,
     password: DataTypes.STRING,
+    role: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    }
   }, {
     sequelize,
     modelName: 'user',
